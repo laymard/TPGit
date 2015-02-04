@@ -1,0 +1,52 @@
+(*TP1 OCAML*)
+(*Laurent AYMARD & Tom GIRADUET*)
+(* Ex2 : Echauffement*)
+let mul2 = function x -> 2*x;;
+let abs = function x -> if x<0 then -x else x;;
+let test1 = function x-> if x>=12 && x<=29 then true else false;;
+test1 2;;
+let test2 = function x-> if x=2 || x=5 ||x=9 ||x=53 then true else false;;
+let test3 = function
+  (12,_) -> true
+  |(_,_) -> false;;
+
+(*Ex3 :  n-uplet et filtrage*)
+let proj1 = function (x,y,z) -> x;;
+let proj23 = function (x,y,z) -> (y,z);;
+let inv2 = function ((a,b),(c,d)) -> (d,c);;
+
+(*Ex 4 : Fonctionnelles*)
+let incrpaire = function (x,y) -> (x+1,y+1);;
+incrpaire (4,18);;
+
+let appliquepaire = function f -> (function  (g,d) -> ((f g),(f d)));;
+appliquepaire (fun x -> x+1) (4,18);;
+
+let rapport = function (f,g) -> (function x -> (f x)/.(g x));;
+rapport (sin,cos);;
+rapport (sin,cos) 0.;;
+
+let tangente = rapport (sin,cos);;
+
+function x -> x*x;;
+(*- : int -> int = <fun>*)
+
+(function x -> x*x) 3;;
+(*- : int = 9*)
+
+function f -> function x -> (f(x + 1)) - 1;; 
+(*- : (int -> int) -> int -> int = <fun>*)
+
+(function f -> function x -> (f(x + 1))-1) (fun x->3);;
+(*- : int -> int = <fun>*)
+
+(function f -> function x -> (f(x+1) -1)) (fun x -> x*x);;
+(*- : int -> int = <fun>*)
+
+((function f -> function x -> (f(x+1)) -1) (fun x -> x*x)) 3;;
+(*- : int = 15*)
+
+(function f -> function x -> (f(x+1))-1) ((function x -> x*x)) 3;; 
+
+let lex () = if (test1 15)  then (print_string "cool") else(print_string "erreur");;
+lex ();;
