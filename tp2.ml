@@ -29,11 +29,18 @@ let integre = function f -> function (a,b,dx) ->
 cum (function roger -> ((f roger)*.dx)) (a,b,dx) ((function a -> function b -> a+.b),0.0) ;;
 
 
-let rec maxi = function f -> function (a,b) ->
+(*let rec maxi = function f -> function (a,b) ->
   let dx = 0.001 in
 if a = b then f a 
 else if f(a+.dx)< f(b-.dx) then maxi f (a+.dx,b)
-      else maxi f (a, b-.dx);;
+      else maxi f (a, b-.dx);;*)
+
+let rec maxi = function f -> function (a,b) ->
+  let dx =0.001 in
+  if a>=b then max (f a, f b)
+  else if (f a)>(f (b-.dx)) then maxi f (a, (b-.dx)) else maxi f (a+.dx,b);;
+
+let max = function (a,b) -> if a>b then a else b;;
 
 
 
@@ -49,4 +56,6 @@ sigma4 (fun x -> x * x) ((fun y -> if y>10 then false else true),(fun y -> y+2))
 sigma4 (fun x -> x) ((fun y -> if y>6 then false else true), (fun y -> y+1)) (( fun x y -> x + y),0) 1;;
 cum (fun x -> x) (0.5,2.5, 0.25) ((fun a -> fun b -> a+.b),0.);;
 integre (fun x -> 1. /. x) (1.,2.,0.001);;
+maxi (fun x -> (-.x)*.(x-.2.)) ((-1.),3.);;
+max (3,4);;
 
